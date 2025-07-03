@@ -2,9 +2,7 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import SingleCard from './components/SingleCard.js';
 
-//Create const array of cards where each points to a star wars droid
-// don't need to be in component so it won't be recreated every time + bc it's a constant
-// each card is an object with a source property which is a path  
+//Create constant array of cards where each points to a star wars droid
 const cardImages =[
   {"src": "/img/images/bb8.png", matched: false},
   {"src": "/img/images/c3po.png", matched: false},
@@ -14,21 +12,18 @@ const cardImages =[
   {"src": "/img/images/battledroid.webp", matched: false},
 ]
 
-//What happens every time you click on New Game
-
 function App() {
+  //State updates
   const[cards, setCards] = useState([])
   const[turns, setTurns] = useState(0)
   const[choiceOne, setChoiceOne] = useState(null)
   const[choiceTwo, setChoiceTwo] = useState(null)
   const[disabled, setDisabled] = useState(false)
-  //shuffle cards
-  //duplicates cards -> array w 12 cards
-  //then sort and assign a random id number
-  //update card state
+  
+  //Shuffle the cards and duplicate them to make array of 12 cards with random ids
   const shuffleCards = () => {
     const shuffledCards = [...cardImages, ...cardImages]
-    .sort(() => Math.random()-0.5 ) //if return # >0, random order
+    .sort(() => Math.random()-0.5 )  
     .map((card) => ({...card, id: Math.random()}))
 
     setChoiceOne(null)
@@ -37,17 +32,14 @@ function App() {
     setTurns(0)
   }
 
-  //handle a choice
+  //Determine what happens when the user clicks a carrd
   const handleChoice = (card) => {
-    // Stop the user from being able to click the first card twice
     if(card.id === choiceOne?.id) return;
 
     choiceOne ? setChoiceTwo(card) : setChoiceOne(card)
-    //can't check if the cards are the same here becaue then the check fires before the state update
-  }
+   }
 
-  //compare 2 selected cards
-  //useEffect fire when comoponent first mounts, then again whenver a dependecy changes
+  //Compare 2 selected cards to determine if they are the same
   useEffect(() => {
     if (choiceOne && choiceTwo){
       setDisabled(true)
@@ -69,7 +61,7 @@ function App() {
   }, [choiceOne, choiceTwo])
   console.log(cards)
 
-  // reset choices & increase turn
+  // Reset choices & increase turn count
   const resetTurn = () => {
     setChoiceOne(null)
     setChoiceTwo(null)
@@ -77,7 +69,7 @@ function App() {
     setDisabled(false)
   }
 
-  //start a new game automatically when component first mounts/runs
+  //Start a new game automatically when component first mounts/runs
   useEffect(() => {
     shuffleCards()
   }, [])
