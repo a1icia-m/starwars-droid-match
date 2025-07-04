@@ -1,6 +1,8 @@
 # Star Wars Droid Match
 
-created with React! simple game I made to learn how to use React
+My first React project and simple Star Wars themed game I made to learn how to use React :)
+
+🎮An interactive memory matching game and my first React project to sharpen my frontend architecture and UI state management skills. Built reusable components, implemented logic for card flipping and matching, and used React hooks to manage dynamic state transitions. Optimized rendering performance and user interaction flow while applying clean, modular design principles to simulate engaging gameplay.
 
 ## Description
 A simple memory matching game where you flip two cards and try to match up the droids with the least amount of turns possible. 
